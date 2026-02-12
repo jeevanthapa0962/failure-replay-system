@@ -47,7 +47,6 @@ uvicorn app.main:app --reload
 ```
 
 Open:
-- API docs: `http://127.0.0.1:8000/docs`
 - Web console: `http://127.0.0.1:8000/`
 
 ## Run the Retry Worker
