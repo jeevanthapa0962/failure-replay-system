@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Failure Replay Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-left"></div>
+  <div class="bg-shape bg-shape-right"></div>
+
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">FastAPI Workflow</p>
+      <h1>Failure Replay Console</h1>
+      <p class="subhead">Trigger requests, replay failed events, and monitor retry state from one consistent interface.</p>
+    </header>
+
+    <section class="grid">
+      <article class="panel" id="process-panel">
+        <h2>Process Request</h2>
+        <form id="process-form">
+          <label for="idempotency_key">Idempotency Key</label>
+          <input id="idempotency_key" name="idempotency_key" type="text" placeholder="optional" />
+
+          <label class="checkbox-row" for="fail">
+            <input id="fail" name="fail" type="checkbox" />
+            Simulate failure
+          </label>
+
+          <button type="submit">Send /process</button>
+        </form>
+        <pre id="process-result" class="result">No request sent yet.</pre>
+      </article>
+
+      <article class="panel" id="replay-panel">
+        <h2>Replay Request</h2>
+        <form id="replay-form">
+          <label for="request_id">Failed Request ID</label>
+          <input id="request_id" name="request_id" type="number" min="1" required />
+          <button type="submit">Send /replay/{id}</button>
+        </form>
+        <pre id="replay-result" class="result">No replay triggered yet.</pre>
+      </article>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="table-head">
+        <h2>Failed Requests</h2>
+        <button id="refresh-btn" type="button">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Retries</th>
+              <th>Idempotency Key</th>
+              <th>Error</th>
+            </tr>
+          </thead>
+          <tbody id="failures-body">
+            <tr><td colspan="5" class="empty">No records yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
